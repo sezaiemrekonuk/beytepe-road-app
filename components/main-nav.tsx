@@ -130,7 +130,7 @@ export function MainNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="border-b">
+    <div className={cn("border-b", mobileMenuOpen && "fixed top-0 left-0 right-0 z-50 bg-background")}>
       <div className="flex h-16 items-center px-4">
         <div className="flex items-center space-x-2">
           <Handshake className="h-6 w-6" />
@@ -232,7 +232,7 @@ export function MainNav() {
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t">
+        <div className="md:hidden border-t fixed top-16 left-0 right-0 bg-background z-10">
           <div className="flex flex-col space-y-2 p-4">
             {mainNavItems.map((item) => (
               <div key={item.href}>
@@ -267,14 +267,10 @@ export function MainNav() {
             <div className="flex flex-col space-y-2 pt-4">
               <Button variant="outline" asChild>
                 <Link href="/signin" onClick={() => setMobileMenuOpen(false)}>
-                  Sign In
+                  Çıkış Yap
                 </Link>
               </Button>
-              <Button asChild>
-                <Link href="/signup" onClick={() => setMobileMenuOpen(false)}>
-                  Sign Up
-                </Link>
-              </Button>
+              <ThemeToggle />
             </div>
           </div>
         </div>

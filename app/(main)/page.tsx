@@ -1,103 +1,90 @@
-import Image from "next/image";
+import { MainSidebar } from "@/components/sidebar/main-sidebar"
+import { ListingCard } from "@/components/listings/listing-card"
 
-export default function Home() {
+// Sample data - replace with real data from your backend
+const sampleListings = [
+  {
+    id: "1",
+    title: "2019 Honda Civic - Low Mileage",
+    location: "Beytepe, Ankara",
+    category: "Cars",
+    imageUrl: "https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=800",
+    isUrgent: true,
+    date: "2024-03-20",
+    lookingFor: "Electric scooter or bicycle"
+  },
+  {
+    id: "2",
+    title: "Shared Room in Student Apartment",
+    location: "Near Campus",
+    category: "Housing",
+    imageUrl: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800",
+    date: "2024-03-19",
+    lookingFor: "Single room in dormitory"
+  },
+  {
+    id: "3",
+    title: "Mountain Bike - Perfect Condition",
+    location: "Beytepe",
+    category: "Bicycles",
+    imageUrl: "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?q=80&w=800",
+    date: "2024-03-18",
+    lookingFor: "Electric scooter"
+  },
+  {
+    id: "4",
+    title: "Study Room Available",
+    location: "Library Building",
+    category: "Campus Services",
+    imageUrl: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=800",
+    isUrgent: true,
+    date: "2024-03-20",
+    lookingFor: "Group study space"
+  },
+  {
+    id: "5",
+    title: "Concert Tickets - Rock Band",
+    location: "Campus Arena",
+    category: "Events",
+    imageUrl: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=800",
+    date: "2024-03-17",
+    lookingFor: "Theater tickets"
+  },
+  {
+    id: "6",
+    title: "Textbooks for Sale",
+    location: "Engineering Faculty",
+    category: "Academic",
+    imageUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=800",
+    date: "2024-03-16",
+    lookingFor: "Different course textbooks"
+  },
+]
+
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="container py-8 grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
+      {/* Sidebar - Hidden on mobile, shown as drawer */}
+      <div className="hidden md:block">
+        <MainSidebar />
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Main Content */}
+      <div className="space-y-8 px-8">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Öne Çıkan İlanlar</h2>
+          <p className="text-muted-foreground">
+            Beytepe Road'da en son takas tekliflerni keşfet
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Listings Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sampleListings.map((listing) => (
+            <ListingCard key={listing.id} listing={listing} />
+          ))}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
