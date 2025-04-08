@@ -48,8 +48,10 @@ const getListing = (id: string) => {
   return listing
 }
 
-export default function ListingPage({ params }: { params: { id: string } }) {
-  const listing = getListing(params.id)
+
+export default async function ListingPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params
+  const listing = getListing(resolvedParams.id)
 
   if (!listing) {
     notFound()
