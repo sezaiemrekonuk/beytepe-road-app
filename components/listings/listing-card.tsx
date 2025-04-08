@@ -24,7 +24,7 @@ interface ListingCardProps {
 export function ListingCard({ listing }: ListingCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow">
-      <Link href={`/listings/${listing.id}`}>
+      <Link href={`/ilan/${listing.id}`}>
         <div className="relative aspect-video">
           <Image
             src={listing.imageUrl}

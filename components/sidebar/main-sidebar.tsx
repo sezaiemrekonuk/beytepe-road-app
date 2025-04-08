@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Flame, Clock } from "lucide-react"
+import slugify from "slugify"
 
 const categories = [
   {
@@ -54,13 +55,13 @@ export function MainSidebar({ className, ...props }: SidebarProps) {
               </CardHeader>
               <CardContent className="grid gap-2">
                 <Button variant="outline" className="justify-start" asChild>
-                  <Link href="/urgent">
+                  <Link href="/acil">
                     <Flame className="mr-2 h-4 w-4 text-red-500" />
                     Acil Takaslar
                   </Link>
                 </Button>
                 <Button variant="outline" className="justify-start" asChild>
-                  <Link href="/latest">
+                  <Link href="/yeniler">
                     <Clock className="mr-2 h-4 w-4 text-blue-500" />
                     Yeni İlanlar
                   </Link>
@@ -87,7 +88,7 @@ export function MainSidebar({ className, ...props }: SidebarProps) {
                       className="w-full justify-start font-normal"
                       asChild
                     >
-                      <Link href={`/category/${item.toLowerCase()}`}>
+                      <Link href={`/kategori/${slugify(item, { lower: true })}`}>
                         {item}
                       </Link>
                     </Button>
