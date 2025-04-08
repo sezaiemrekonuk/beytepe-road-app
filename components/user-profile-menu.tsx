@@ -14,14 +14,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { User, LogOut, Package, Heart, ShoppingCart, Handshake, Settings } from "lucide-react"
+import { useAuth } from "@/lib/providers/auth-provider"
+import { User as FirebaseUser } from "firebase/auth"
 
 export function UserProfileMenu() {
+  const { user, signOut } = useAuth()
+
+  if (!user || (user as any).status === "no-user") {
+    return null
+  }
+
+  const firebaseUser = user as FirebaseUser
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/avatars/01.png" alt="@user" />
+            <AvatarImage src={firebaseUser.photoURL || ""} alt={firebaseUser.displayName || "User"} />
             <AvatarFallback>U</AvatarFallback>
           </Avatar>
         </Button>
@@ -29,60 +39,60 @@ export function UserProfileMenu() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Kullanıcı Adı</p>
+            <p className="text-sm font-medium leading-none">{firebaseUser.displayName}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              user@example.com
+              {firebaseUser.email}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/profilim" className="flex items-center">
+            <Link href="/profil" className="flex items-center">
               <User className="mr-2 h-4 w-4" />
               <span>Bana Özel</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/ilanlarim" className="flex items-center">
+            <Link href="/profil/aktif-ilanlar" className="flex items-center">
               <Package className="mr-2 h-4 w-4" />
               <span>İlanlarım</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/favorilerim" className="flex items-center">
+            <Link href="/profil/favori-ilanlar" className="flex items-center">
               <Heart className="mr-2 h-4 w-4" />
               <span>Favorilerim</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/sepetim" className="flex items-center">
+            <Link href="/profil/favori-saticilar" className="flex items-center">
               <ShoppingCart className="mr-2 h-4 w-4" />
-              <span>Sepetim</span>
+              <span>Favori Satıcılarım</span>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/takas-islemlerim" className="flex items-center">
+            <Link href="/profil/son-islemler" className="flex items-center">
               <Handshake className="mr-2 h-4 w-4" />
-              <span>Takas İşlemlerim</span>
+              <span>Son İşlemlerim</span>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/hesabim" className="flex items-center">
+            <Link href="/profil/ayarlar" className="flex items-center">
               <Settings className="mr-2 h-4 w-4" />
-              <span>Hesabım</span>
+              <span>Ayarlar</span>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/signout" className="flex items-center text-red-600">
+          <Link href="/giris" className="flex items-center text-red-600" onClick={signOut}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Çıkış Yap</span>
           </Link>
