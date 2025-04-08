@@ -17,6 +17,10 @@ import {
 import { MapPin, Menu, X, Compass, Route, Info, Handshake } from "lucide-react"
 import { useState } from "react"
 import { ThemeToggle } from "./theme-toggle"
+import { UserProfileMenu } from "./user-profile-menu"
+import { MessagesMenu } from "./messages-menu"
+import { NotificationsMenu } from "./notifications-menu"
+import { FavoritesMenu } from "./favorites-menu"
 
 const mainNavItems = [
   {
@@ -210,11 +214,19 @@ export function MainNav() {
           </NavigationMenu>
         </div>
 
-        {/* Auth Buttons */}
+        {/* Right Side Actions */}
         <div className="hidden md:flex items-center space-x-4 ml-auto">
-          <Button variant="ghost" asChild>
-            <Link href="/signin">Çıkış Yap</Link>
+          <Button
+            variant="default"
+            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+            asChild
+          >
+            <Link href="/ilanlar/olustur">Takas İlanı Ver</Link>
           </Button>
+          <MessagesMenu />
+          <NotificationsMenu />
+          <FavoritesMenu />
+          <UserProfileMenu />
           <ThemeToggle />
         </div>
 
@@ -265,12 +277,22 @@ export function MainNav() {
               </div>
             ))}
             <div className="flex flex-col space-y-2 pt-4">
-              <Button variant="outline" asChild>
-                <Link href="/signin" onClick={() => setMobileMenuOpen(false)}>
-                  Çıkış Yap
+              <Button
+                variant="default"
+                className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                asChild
+              >
+                <Link href="/ilanlar/olustur" onClick={() => setMobileMenuOpen(false)}>
+                  Takas İlanı Ver
                 </Link>
               </Button>
-              <ThemeToggle />
+              <div className="flex items-center justify-between">
+                <MessagesMenu />
+                <NotificationsMenu />
+                <FavoritesMenu />
+                <UserProfileMenu />
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </div>
