@@ -1,6 +1,9 @@
+"use client"
+
 import { MainSidebar } from "@/components/sidebar/main-sidebar"
 import { MobileSidebar } from "@/components/sidebar/mobile-sidebar"
 import { ListingCard } from "@/components/listings/listing-card"
+import { useAuth } from "@/lib/providers/auth-provider"
 
 // Sample data - replace with real data from your backend
 const sampleListings = [

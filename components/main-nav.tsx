@@ -21,7 +21,7 @@ import { UserProfileMenu } from "./user-profile-menu"
 import { MessagesMenu } from "./messages-menu"
 import { NotificationsMenu } from "./notifications-menu"
 import { FavoritesMenu } from "./favorites-menu"
-
+import { useAuth } from "@/lib/providers/auth-provider"
 const mainNavItems = [
   {
     title: "Ana Sayfa",
@@ -131,6 +131,7 @@ ListItem.displayName = "ListItem"
 
 export function MainNav() {
   const pathname = usePathname()
+  const { signOut } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
