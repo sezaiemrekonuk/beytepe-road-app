@@ -1,4 +1,5 @@
 import { MainSidebar } from "@/components/sidebar/main-sidebar"
+import { MobileSidebar } from "@/components/sidebar/mobile-sidebar"
 import { ListingCard } from "@/components/listings/listing-card"
 
 // Sample data - replace with real data from your backend
@@ -63,26 +64,33 @@ const sampleListings = [
 
 export default function HomePage() {
   return (
-    <div className="container py-8 grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
-      {/* Sidebar - Hidden on mobile, shown as drawer */}
-      <div className="hidden md:block">
-        <MainSidebar />
+    <div className="container p-8 mx-auto">
+      {/* Mobile Sidebar Button */}
+      <div className="md:hidden mb-4">
+        <MobileSidebar />
       </div>
 
-      {/* Main Content */}
-      <div className="space-y-8 px-8">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight">Öne Çıkan İlanlar</h2>
-          <p className="text-muted-foreground">
-            Beytepe Road'da en son takas tekliflerni keşfet
-          </p>
+      <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
+        {/* Desktop Sidebar */}
+        <div className="hidden md:block">
+          <MainSidebar />
         </div>
 
-        {/* Listings Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sampleListings.map((listing) => (
-            <ListingCard key={listing.id} listing={listing} />
-          ))}
+        {/* Main Content */}
+        <div className="space-y-8">
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight">Öne Çıkan İlanlar</h2>
+            <p className="text-muted-foreground">
+              Beytepe Road'da en son takas tekliflerni keşfet
+            </p>
+          </div>
+
+          {/* Listings Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sampleListings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
