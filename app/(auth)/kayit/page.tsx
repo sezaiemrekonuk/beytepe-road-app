@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/lib/providers/auth-provider"
 import { Icons } from "@/components/icons"
+import { getFirebaseErrorMessage } from "@/lib/utils/error-messages"
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("")
@@ -20,7 +21,17 @@ export default function SignUpPage() {
     setError("")
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match")
+      setError("Şifreler eşleşmiyor")
+      return
+    }
+
+    if (password.length < 6) {
+      setError("Şifre en az 6 karakter olmalıdır")
+      return
+    }
+
+    if (!email.endsWith(".edu.tr")) {
+      setError("Sadece .edu.tr email adresleri kullanılabilir")
       return
     }
 
@@ -28,9 +39,9 @@ export default function SignUpPage() {
 
     try {
       await signUp(email, password)
-      router.push("/")
+      router.push("/verify-email-sent")
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Bir hata oluştu")
+      setError(getFirebaseErrorMessage(err))
     } finally {
       setLoading(false)
     }

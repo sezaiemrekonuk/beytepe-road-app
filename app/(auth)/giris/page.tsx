@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/lib/providers/auth-provider"
 import { Icons } from "@/components/icons"
+import { getFirebaseErrorMessage } from "@/lib/utils/error-messages"
 
 export default function SignInPage() {
   const [email, setEmail] = useState("")
@@ -23,7 +24,7 @@ export default function SignInPage() {
       await signIn(email, password)
       router.push("/")
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Bir hata oluştu")
+      setError(getFirebaseErrorMessage(err))
     } finally {
       setLoading(false)
     }
@@ -79,7 +80,7 @@ export default function SignInPage() {
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium">
-                Password
+                Şifre
               </label>
               <input
                 id="password"
