@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState, Suspense } from "react"
 import {
   User,
   signInWithEmailAndPassword,
@@ -27,7 +27,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+function AuthProviderContent({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | NoUser | null>({status: "no-user"})
   const [loading, setLoading] = useState(true)
   const router = useRouter()
@@ -98,6 +98,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <AuthProviderContent>{children}</AuthProviderContent>
+    </Suspense>
+  )
 }
 
 export function useAuth() {
